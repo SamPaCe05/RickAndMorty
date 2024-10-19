@@ -1,13 +1,14 @@
-import PropTypes from 'prop-types'
 import Character from "../components/Character";
-export default function HomePage({ data }) {
+import PropTypes from "prop-types";
+export default function Aliens({ data }) {
+
 
     return (
-        <div className="grid grid-cols-2 gap-2  mt-4 ">
+        <div className=" grid grid-cols-2 gap-2  mt-4 ">
+
+
             {
-
                 data.map(item => (
-
                     <Character
                     key={item.id}
                     name={item.name}
@@ -19,7 +20,6 @@ export default function HomePage({ data }) {
                     location={item.location.name}
                     origin={item.origin.name}
                     ></Character>
-
                 ))
 
             }
@@ -27,6 +27,6 @@ export default function HomePage({ data }) {
         </div>
     )
 }
-HomePage.propTypes = {
-    data: PropTypes.array.isRequired,
+Aliens.propTypes = {
+    data: PropTypes.array.isRequired, 
 };

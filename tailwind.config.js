@@ -1,12 +1,19 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-
     extend: {
+      colors: {
+        ghBg: '#0D1117',
+        buttonGh: "#212830",
+        buttonHover: "#262C36",
+        body: "#272B33",
+        card: "#3C3E44"
+      },
       screens: {
         'sm': '640px',   // Móvil
         'md': '768px',   // Tablet
@@ -17,12 +24,6 @@ export default {
         'custom-medium': '800px',
         'custom-large': '1400px',
       },
-      colors: {
-        "ghBg": '#0D1117',
-        "buttonGh": "#212830",
-        "buttonHover": "#262C36",
-        "body": "#222"
-      }
     },
   },
   plugins: [],
