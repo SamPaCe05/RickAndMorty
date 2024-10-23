@@ -5,7 +5,7 @@ export default function NavBar() {
     return (
 
         <nav className=" outline-none flex justify-center h-screen list-none relative bg-slate-500">
-            <ul className="flex flex-col gap-6 mt-5 items-center 
+            <ul className="flex flex-col gap-6 mt-20 items-center 
             [&>*]:w-40 
             [&>*]:text-center 
             [&>*]:capitalize 
@@ -17,7 +17,6 @@ export default function NavBar() {
             [&>*]:cursor-pointer
             [&>*]:text-2xl">
                 <Link to={"/"} >Home</Link>
-                <Link to={"/details"} >Details</Link>
                 <Link to={"/about"} >About</Link>
                 <NavigationSelect></NavigationSelect>
                 <Link to={"/findcharacter"} >Find</Link>

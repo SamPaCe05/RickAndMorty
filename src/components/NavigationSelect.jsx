@@ -13,10 +13,10 @@ export default function NavigationSelect() {
     return (
         <select
             onChange={handleNavigation}
-            className="capitalize p-2 cursor-pointer text-2xl font-black text-white bg-blue-300 rounded-md"
+            className="capitalize p-2 cursor-pointer outline-none bg-blue-300 rounded-md"
             defaultValue=""
         >
-            <option value="" disabled>Select a category</option>
+            <option value="" className="text-lg" disabled>Select a category</option>
             <option value="/humans" className="text-2xl font-black text-white cursor-pointer">
                 Humans
             </option>

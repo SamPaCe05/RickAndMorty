@@ -10,15 +10,17 @@ export default function Aliens({ data }) {
             {
                 data.map(item => (
                     <Character
-                    key={item.id}
-                    name={item.name}
-                    status={item.status}
-                    species={item.species}
-                    gender={item.gender}
-                    image={item.image}
-                    id={item.id}
-                    location={item.location.name}
-                    origin={item.origin.name}
+                        key={item.id}
+                        name={item.name}
+                        status={item.status}
+                        species={item.species}
+                        gender={item.gender}
+                        image={item.image}
+                        id={item.id}
+                        location={item.location.name}
+                        origin={item.origin.name}
+                        flag={true}
+
                     ></Character>
                 ))
 
@@ -28,5 +30,5 @@ export default function Aliens({ data }) {
     )
 }
 Aliens.propTypes = {
-    data: PropTypes.array.isRequired, 
+    data: PropTypes.array.isRequired,
 };

@@ -10,10 +10,44 @@ export default function SearchButtonLocal({ data }) {
     const [fil, setFil] = useState([])
     const [search, setSearch] = useState(null)
     const [api, setApi] = useState([])
+    const [dt, setData] = useState([])
+    const url = 'https://rickandmortyapi.com/api/character/'
 
-    async function fetchChrt(url) {
+    async function fetchingAll(url) {
         try {
-            const response = await fetch(url)
+            const response = await fetch(url, {
+                headers: {
+                    Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+                },
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const rp = await response.json();
+
+            setData((prevData) => [...prevData, ...rp.results]);
+
+            if (rp.info.next != null) {
+                fetchingAll(rp.info.next);
+            }
+
+        } catch (error) {
+            console.log(`error de tipo ${error}`);
+            // setErr(error.message);
+        }
+    }
+
+
+
+    async function fetchChrt(url
+
+    ) {
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+                },
+            })
             if (!response.ok) {
                 throw new Error(response.status)
             }
@@ -28,15 +62,17 @@ export default function SearchButtonLocal({ data }) {
 
     }
 
-    const callCharacter = (itemValue) => {
+    const callCharacterLocal = (itemValue) => {
         const select = fil.find(item => item.name === itemValue);
         setSearch(select)
     }
 
     const handleSubmitApi = (e) => {
         e.preventDefault();
-        if (valueSearchAPI) {
+        if (valueSearchAPI === "*") {
+            fetchingAll(url)
 
+        } else {
             let url = 'https://rickandmortyapi.com/api/character/?name='
             let ref = valueSearchAPI
             url += ref.replaceAll(' ', '+')
@@ -53,7 +89,9 @@ export default function SearchButtonLocal({ data }) {
 
     }
     const handleCHangeAPI = (e) => {
+
         const value = e.target.value
+
         setValueSearchAPI(value)
     }
     return (
@@ -70,7 +108,7 @@ export default function SearchButtonLocal({ data }) {
                 </div>
 
                 <select className='w-96' defaultValue=""
-                    onChange={(e) => callCharacter(e.target.value)}
+                    onChange={(e) => callCharacterLocal(e.target.value)}
                 >
                     <option value="" disabled key="" className='capitalize'>Select A Character</option>
                     {fil.length > 0 ? (
@@ -94,6 +132,7 @@ export default function SearchButtonLocal({ data }) {
                             id={search.id}
                             location={search.location.name}
                             origin={search.origin.name}
+                            flag={true}
                         />
 
                     ) : (
@@ -125,25 +164,42 @@ export default function SearchButtonLocal({ data }) {
                     <input type="submit" value="Consult" className=' w-32 h-10 cursor-pointer' />
 
                 </div>
-
+                <p className='pb-3 capitalize'>type {"*"} to get all characters</p>
             </form>
 
             <div className='grid grid-cols-2 gap-3'>
                 {
-                    api.map(item => (
-                        <Character
-                            key={item.id}
-                            name={item.name}
-                            status={item.status}
-                            species={item.species}
-                            gender={item.gender}
-                            image={item.image}
-                            id={item.id}
-                            location={item.location.name}
-                            origin={item.origin.name}
-                        ></Character>
-                    ))
+                    valueSearchAPI === "*"
+                        ? dt.map(item => (
+                            <Character
+                                key={item.id}
+                                name={item.name}
+                                status={item.status}
+                                species={item.species}
+                                gender={item.gender}
+                                image={item.image}
+                                id={item.id}
+                                location={item.location.name}
+                                origin={item.origin.name}
+                                flag={true}
+                            />
+                        ))
+                        : api.map(item => (
+                            <Character
+                                key={item.id}
+                                name={item.name}
+                                status={item.status}
+                                species={item.species}
+                                gender={item.gender}
+                                image={item.image}
+                                id={item.id}
+                                location={item.location.name}
+                                origin={item.origin.name}
+                                flag={true}
+                            />
+                        ))
                 }
+
             </div>
 
 

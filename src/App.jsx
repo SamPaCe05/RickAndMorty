@@ -15,20 +15,22 @@ function App() {
   const [data, setData] = useState([]);
   const [err, setErr] = useState(null)
   const url = 'https://rickandmortyapi.com/api/character/'
+ 
+
   async function fetching(url) {
     try {
-      const response = await fetch(url)
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const info = await response.json();
-      setData(info.results)
+      const rp = await response.json();
+
+      setData(rp.results)
     } catch (error) {
       console.log(`error de tipo ${error}`);
-      setErr(error.message)
+      setErr(error.message);
     }
   }
-
   useEffect(() => {
     fetching(url)
   }, [])
@@ -40,12 +42,13 @@ function App() {
           <ErrorPage err={err} />
         ) :
           <Routes>
+            
 
             <Route element={<Layout></Layout>}>
 
               <Route path="/" element={<HomePage data={data} />} />
               <Route path="/about" element={<About />} />
-              <Route path="/details" element={<DetailsPage />} />
+              <Route path="/details/:id" element={<DetailsPage />} />
               <Route path="/humans" element={<Humans data={data.filter(item => item.species === "Human")} />} />
               <Route path="/aliens" element={<Aliens data={data.filter(item => item.species === "Alien")} />} />
               <Route path="/findCharacter" element={<FindCharacter data={data} />} />
